@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Word Guess</title>
+    <script src="assets/javascript/game.js"></script>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <audio id="music" src="" preload="auto" loop="loop"></audio>
+    <div class="wrapper">
+        <header>
+            <img src="assets/images/title.jpg" alt="Title">
+        </header>
+        <div class="contents">
+            <div class="image">
+                <img id="changeImg" src="assets/images/start.jpg" alt="Result">
+                <p>
+                    <span id="WinLose"></span>
+                    <span id="start">Press any key to get started!</span><br><br>
+                </p>
+            </div>
+            <div class="game">
+                <p>
+                    Wins : <span id="win">0</span><br><br>
+                    Current Word<br><br>
+                    <span id="screen"></span><br><br>
+                    Number of Guesses<br>Remaining<br><br>
+                    <span id="count"></span><br><br>
+                    Letters Already<br>Guessed<br><br>
+                    <span id="guess"></span><br><br>
+                    <span id="wrong"></span>
+                </p>
+            </div>
+        </div>
+    </div>  
+</body>
+</html>
