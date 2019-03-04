@@ -61,31 +61,85 @@ var word=["adult", "aircraft", "alphabet",
      document.getElementById("win").textContent=win;
 //     document.getElementById("lose").textContent=lose;
      document.getElementById("count").textContent="";
-     document.getElementById("screen").textContent=screenWord;
+     document.getElementById("screen").textContent="";
      document.getElementById("guess").textContent=userChoose;
  }
 
  /* music */
  function sound() {
-     var soundArray=["FF7","mario","metal"];
+     var soundArray=["FF7","mario","metal","zelda"];
      var computerIndex=Math.floor(Math.random()*soundArray.length);
      backSound=soundArray[computerIndex];
      document.getElementById("music").src="assets/music/"+backSound+".mp3";
+     document.getElementById("music").loop="loop"
      document.getElementById("music").play();
  }
 
  /* when you win, music is changed */
  function winSound() {
     document.getElementById("music").src="assets/music/"+backSound+"win"+".mp3";
+    document.getElementById("music").loop="";
     document.getElementById("music").play();
 }
 
 /* when you lose, music is changed */
 function loseSound() {
     document.getElementById("music").src="assets/music/"+backSound+"lose"+".mp3";
+    document.getElementById("music").loop="";
     document.getElementById("music").play();
 }
 
+/* new game start */
+function start(){
+    count--;
+    document.getElementById("WinLose").textContent="";
+    document.getElementById("start").textContent="Guess the word!!";
+    document.getElementById("screen").textContent=screenWord;
+    document.getElementById("count").textContent=count;
+    document.getElementById("changeImg").src="assets/images/wonder.jpg";
+}
+
+/*if you press wrong key */ 
+function wrongPress(userKey) {
+    userChoose=userChoose+userKey;
+}
+
+/*if you press matched key */ 
+function rightPress(userKey) {
+    for(var i=0; i<computerChoose.length;i++) { //for case when the number of matched character is more than 1.
+        var correctPos = computerChoose.indexOf(userKey);
+        if(correctPos>=0) { //screenWord is changed like _a_ and computerChoose is changed like c_r. 
+            screenWord=screenWord.substr(0,correctPos)+computerChoose[correctPos]+screenWord.substr(correctPos+1);
+            computerChoose=computerChoose.substr(0,correctPos)+"-"+computerChoose.substr(correctPos+1);  
+        }
+    }
+}
+
+/*if you win, you can see this message */
+function winMessage() {
+    document.getElementById("changeImg").src="assets/images/"+answer+".jpg";
+    document.getElementById("WinLose").textContent="Good job! Keep it up!"
+}
+
+/*if you lose, you can see this message */
+function loseMessage() {
+    document.getElementById("changeImg").src="assets/images/laugh.jpg";
+    document.getElementById("WinLose").textContent="You are idiot!! The answer was "+answer+"!!";
+}
+
+/* during the game */
+function onGame() {
+    var userString="";
+    document.getElementById("screen").textContent=screenWord;
+    document.getElementById("count").textContent=count;
+    for (var i=0;i<userChoose.length;i++) {
+        userString=userString+userChoose[i];
+        if(i!=userChoose.length-1) {
+            userString=userString+", ";
+        }
+    }
+    document.getElementById("guess").textContent=userString;
+}
  /*start with computer's choice */
  random();
  makeBlank();
@@ -94,12 +148,7 @@ function loseSound() {
  document.onkeyup=function(event) {
      if(count===startCount) {
         if (event.key!="F5") {
-            count--;
-            document.getElementById("WinLose").textContent="";
-            document.getElementById("start").textContent="Guess the word!!";
-            document.getElementById("screen").textContent=screenWord;
-            document.getElementById("count").textContent=count;
-            document.getElementById("changeImg").src="assets/images/wonder.jpg";
+            start();
             sound();
         }
      } else {
@@ -109,21 +158,14 @@ function loseSound() {
             document.getElementById("changeImg").src="assets/images/wonder.jpg";
             if(userChoose.indexOf(userKey)<0 && screenWord.indexOf(userKey)<0) { //if you don't press the same button before,
                 if(computerChoose.indexOf(userKey)<0) { //if you didn't press the mathced key inside of answer,
-                    userChoose=userChoose+userKey;
+                    wrongPress(userKey);
                 } else { //if you press the mathced key inside of answer,
-                    for(var i=0; i<computerChoose.length;i++) { //for case when the number of matched character is more than 1.
-                        var correctPos = computerChoose.indexOf(userKey);
-                        if(correctPos>=0) { //screenWord is changed like _a_ and computerChoose is changed like c_r. 
-                            screenWord=screenWord.substr(0,correctPos)+computerChoose[correctPos]+screenWord.substr(correctPos+1);
-                            computerChoose=computerChoose.substr(0,correctPos)+"-"+computerChoose.substr(correctPos+1);  
-                        }
-                    }
+                    rightPress(userKey);
                 }
                 if(screenWord===answer) { //if you match whole character of answer,
                     win++;
                     winSound();
-                    document.getElementById("changeImg").src="assets/images/"+answer+".jpg";
-                    document.getElementById("WinLose").textContent="Good job! Keep it up!"
+                    winMessage();
                     initCount();
                     random();
                     makeBlank();
@@ -133,23 +175,13 @@ function loseSound() {
                     if(count===0) {   //When count is 0, then you lose. And new game starts.
 //                      lose++;
                         loseSound();
-                        document.getElementById("changeImg").src="assets/images/laugh.jpg";
-                        document.getElementById("WinLose").textContent="You are idiot!! The answer was "+answer+"!!";
+                        loseMessage();
                         initCount();
                         random();
                         makeBlank();
                         write();
                     } else {
-                        var userString="";
-                        document.getElementById("screen").textContent=screenWord;
-                        document.getElementById("count").textContent=count;
-                        for (var i=0;i<userChoose.length;i++) {
-                            userString=userString+userChoose[i];
-                            if(i!=userChoose.length-1) {
-                                userString=userString+", ";
-                            }
-                        }
-                        document.getElementById("guess").textContent=userString;
+                        onGame();
                     }
                 }
             } else {
