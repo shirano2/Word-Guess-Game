@@ -91,7 +91,6 @@ function loseSound() {
 
 /* new game start */
 function start(){
-    count--;
     document.getElementById("WinLose").textContent="";
     document.getElementById("start").textContent="Guess the word!!";
     document.getElementById("screen").textContent=screenWord;
@@ -140,6 +139,19 @@ function onGame() {
     }
     document.getElementById("guess").textContent=userString;
 }
+
+/* check type of key */
+function typeofKey(num) {
+    if(num===0) {
+        document.getElementById("wrong").textContent=""; 
+        document.getElementById("changeImg").src="assets/images/wonder.jpg";
+    } else if(num==1) {
+        document.getElementById("wrong").textContent="You already pressed the same key before."; 
+    } else {
+        document.getElementById("wrong").textContent="Wrong Input!! You should input Alpahbet(a-z)";
+    }  
+}
+
  /*start with computer's choice */
  random();
  makeBlank();
@@ -148,14 +160,14 @@ function onGame() {
  document.onkeyup=function(event) {
      if(count===startCount) {
         if (event.key!="F5") {
+            count--;
             start();
             sound();
         }
      } else {
         var userKey=event.key.toLowerCase();   //get the information of key which is pressing.
         if("abcdefghijklmnopqrstuvwxyz".split("").indexOf(userKey)>=0) {    //if you press alphabet,
-            document.getElementById("wrong").textContent=""; 
-            document.getElementById("changeImg").src="assets/images/wonder.jpg";
+            typeofKey(0);
             if(userChoose.indexOf(userKey)<0 && screenWord.indexOf(userKey)<0) { //if you don't press the same button before,
                 if(computerChoose.indexOf(userKey)<0) { //if you didn't press the mathced key inside of answer,
                     wrongPress(userKey);
@@ -185,10 +197,10 @@ function onGame() {
                     }
                 }
             } else {
-                document.getElementById("wrong").textContent="You already pressed the same key before."; 
+                typeofKey(1);
             }
         } else { //if you didn't press alphabet,
-            document.getElementById("wrong").textContent="Wrong Input!! <br>You should input Alpahbet(a-z)";
+            typeofKey(2);
         }
      }  
  }
