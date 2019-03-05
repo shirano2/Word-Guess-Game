@@ -36,7 +36,7 @@ var game ={
     random:function() {  /* random choice of computer for new game */
         var computerIndex=Math.floor(Math.random()*this.word.length);
         this.computerChoose=this.word[computerIndex];
-        this.answer=this.computerChoose; //Save the answer;
+        this.answer=this.computerChoose; /* save the answer; */
     },
 
     makeBlank:function() { /* screen clear for new game */
@@ -70,7 +70,7 @@ var game ={
         this.write();
     },
 
-    startMessage:function(){ /*message is changed when new game starts */
+    startMessage:function(){ /* message is changed when new game starts */
         document.getElementById("WinLose").textContent="";
         document.getElementById("start").textContent="Guess the word!!";
         document.getElementById("screen").textContent=this.screenWord;
@@ -139,7 +139,7 @@ var game ={
         document.getElementById("music").play();
     },
 
-    message:function(m) { /*if game ends, you can see this message and picture */
+    message:function(m) { /* if game ends, you can see this message and picture */
         if(m=="win") {
             document.getElementById("changeImg").src="assets/images/"+this.answer+".jpg";
             document.getElementById("WinLose").textContent="Good job! Keep it up!"
@@ -193,27 +193,27 @@ var game ={
 /* before game starts */
 game.init();
 
- /*if you press keyboard, */
+ /* if you press keyboard, */
  document.onkeyup=function(event) {
      if(game.count===game.startCount) { /* wait for pressing any key to start */
         if (event.key!="F5") {
-            game.pressStart(); /*game starts*/
+            game.pressStart(); /* game starts */
         }
-     } else { /*after press any key to start game */ 
-        var userKey=event.key.toLowerCase();   /*get pressing key information */
-        if(game.isAlpha(userKey)) { /*if you press alphabet */
+     } else { /* after press any key to start game */ 
+        var userKey=event.key.toLowerCase();   /* get pressing key information */
+        if(game.isAlpha(userKey)) { /* if you press alphabet */
             game.typeofKey("alpha");
-            if(game.isNotSameKey(userKey)) { //if you don't press the same button before,
-                if(game.isNotMatched(userKey)) { //if you didn't press the mathced key inside of answer,
+            if(game.isNotSameKey(userKey)) { /* if you don't press the same button before, */
+                if(game.isNotMatched(userKey)) { /* if you didn't press the mathced key inside of answer, */
                     game.wrongPress(userKey);
-                } else { //if you press the mathced key inside of answer,
+                } else { /* if you press the mathced key inside of answer, */
                     game.rightPress(userKey);
                 }
                 game.checkCase(); /* check if game is win, lose or on game */
             } else {
-                game.typeofKey("same"); /*if you press same key before*/
+                game.typeofKey("same"); /* if you press same key before */
             }
-        } else { //if you didn't press alphabet,
+        } else { /* if you didn't press alphabet, */
             game.typeofKey("etc");
         }
      }  
