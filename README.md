@@ -13,7 +13,7 @@ https://shirano2.github.io/Word-Guess-Game/
 
 * HTML5
 * CSS3
-* jQuery
+* JQuery
 * Javascript
 
 
