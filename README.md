@@ -1,13 +1,25 @@
 # Word-Guess-Game
 
+This game is simple. If you find the correct word, then you will win.
 
-##This game is simple. If you find a correct word, then you win.
-
-
-##But if you didn't until count is zero, then you lose.
+But if you can't find out the answer until count is zero, then you will lose.
 
 
-##Good luck.
+## Site
+https://shirano2.github.io/Word-Guess-Game/
 
 
-##This is made by Minseok Choi (https://github.com/shirano2).
+### Technologies Used
+
+* HTML5
+* CSS3
+* jQuery
+* Javascript
+
+
+### Music
+Final Fantasy7, Metal gear solid, the legend of Zelda, Super Mario bros.
+
+
+### Creator
+This is made by Minseok Choi (https://github.com/shirano2)
