@@ -18,7 +18,7 @@ https://shirano2.github.io/Word-Guess-Game/
 
 
 ### Music
-Final Fantasy7, Metal gear solid, the legend of Zelda, Super Mario bros.
+Final Fantasy7, Metal Gear Solid, The Legend of Zelda, Super Mario Bros.
 
 
 ### Creator
